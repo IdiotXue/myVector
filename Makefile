@@ -84,6 +84,20 @@ clean:
 	@rm $(OBJS) # @表示不在终端打印执行的命令
 	@rm $(TARGET)
 
+# g++ -std=c++11 -g -ggdb -Wall -O0 -I./include -c ./src/Vector.cpp -o ./obj/Vector.o
+stalib:
+	$(CC) $(CPPFLAGS) ${C11} -I$(INC_PATH) -c ./src/Vector.cpp -o ./obj/VectorSta.o
+	ar -crv ./lib/libmyvector.a ./obj/VectorSta.o
+
+dynlib:
+	$(CC) $(CPPFLAGS) ${C11} -fPIC -I$(INC_PATH) -c ./src/Vector.cpp -o ./obj/VectorDyn.o
+	$(CC) $(CPPFLAGS) ${C11} -shared -o ./lib/libmyvector.so ./obj/VectorDyn.o
+
+usesta:
+	$(CC) $(CPPFLAGS) ${C11} -I$(INC_PATH) -o ./bin/vec_usesta ./src/main.cpp -L./lib -lmyvector 
+
+usedyn:
+	$(CC) $(CPPFLAGS) ${C11} -I$(INC_PATH) -o ./bin/vec_usedyn ./src/main.cpp -L./lib -lmyvector 
 # 测试用
 path:
 	@echo $(SRC_FILE_WITH_DIR)
