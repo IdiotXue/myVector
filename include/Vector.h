@@ -6,7 +6,9 @@
 #define MY_VECTOR_H
 
 #include <stdexcept>
-
+/**
+ * 类模板分离编译很麻烦，所以一般在头文件中实现
+ */
 namespace myvector
 {
 template <typename Object>
